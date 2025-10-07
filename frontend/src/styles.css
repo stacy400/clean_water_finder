@@ -1,0 +1,72 @@
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.hero-section {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://cdn.pixabay.com/photo/2016/11/21/16/09/water-1846574_1280.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+#map {
+  height: 70vh;
+  width: 100%;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.page-transition {
+  transition: all 0.3s ease;
+}
+
+.water-card {
+  transition: transform 0.3s ease;
+}
+
+.water-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+}
+
+.btn-primary {
+  background-color: #0ea5e9;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0284c7;
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.stat-card {
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Custom checkmark animation */
+.checkmark {
+  stroke-dasharray: 180;
+  stroke-dashoffset: 180;
+  animation: draw 0.5s forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
