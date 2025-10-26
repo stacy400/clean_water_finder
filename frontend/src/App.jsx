@@ -1,30 +1,27 @@
-const App = () => {
-  const [currentPage, setCurrentPage] = React.useState('home');
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import FindWater from "./pages/FindWater";
+import AddSource from "./pages/AddSource";
+import About from "./pages/About";
 
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return <HomePage onNavigate={setCurrentPage} />;
-      case 'map':
-        return <MapPage onNavigate={setCurrentPage} />;
-      case 'report':
-        return <ReportPage />;
-      case 'analytics':
-        return <AnalyticsPage />;
-      default:
-        return <HomePage onNavigate={setCurrentPage} />;
-    }
-  };
-
+function App() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar currentPage={currentPage} onNavigate={setCurrentPage} />
+      <Navbar />
       <main className="flex-grow">
-        <div className="fade-in page-transition">
-          {renderPage()}
-        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/find" element={<FindWater />} />
+          <Route path="/add" element={<AddSource />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
       </main>
-      <Footer />
+      <footer className="bg-blue-600 text-white text-center py-2">
+        <p>© 2025 Clean Water Finder | Supporting SDG 6</p>
+      </footer>
     </div>
   );
-};
+}
+
+export default App;

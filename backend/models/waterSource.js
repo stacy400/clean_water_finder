@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const waterSourceSchema = new mongoose.Schema({
   name: {
@@ -34,4 +34,4 @@ const waterSourceSchema = new mongoose.Schema({
 });
 
 const WaterSource = mongoose.model('WaterSource', waterSourceSchema);
-module.exports = WaterSource;
+export default WaterSource;

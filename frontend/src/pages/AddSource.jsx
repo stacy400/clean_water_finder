@@ -1,4 +1,6 @@
-const ReportPage = () => {
+import React from "react";
+
+const AddSource = () => {
   const [formData, setFormData] = React.useState({
     name: '',
     location: '',
@@ -248,3 +250,4 @@ const ReportPage = () => {
     </div>
   );
 };
+export default AddSource;

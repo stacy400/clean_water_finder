@@ -1,29 +1,39 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const connectDB  = require('./config/db');
-const cors = require('cors');
-
-dotenv.config();
-
-const app = express();
-app.use(cors());
-
-// Middleware: parse JSON
+import express from "express"; 
+import mongoose from "mongoose"; 
+import cors from "cors"; 
+import dotenv from "dotenv";
+dotenv.config(); 
+const app = express(); app.use(cors()); app.use(express.json());
+app.use(cors()); 
 app.use(express.json());
 
-// Connect DB
-connectDB();
+// --- MongoDB Connection ---
+mongoose.connect(process.env.MONGODB_ATLAS_URI)
+    .then(() => console.log("✅ MongoDB Connected"))
+    .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
-// Routes
-app.use("/water", require("./routes/waterRoutes"));
+// --- Import WaterSource Model ---
+ import WaterSource from './models/waterSource.js'; 
 
-// Default route (HOME Page)
-app.get("/", (req, res) => {
-    res.send("API Server for Express JS is up and running....");
+// --- Routes ---
+app.get("/api/water-sources", async (req, res) => {
+    try {
+        const sources = await WaterSource.find();
+        res.json(sources);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
 
-
-// Start Server
+app.post("/api/water-sources", async (req, res) => {
+  try { 
+    const newSource = new WaterSource(req.body);
+    await newSource.save();
+    res.json({ success: true, source: newSource });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+// --- Start Server ---
 const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, ()=> console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
