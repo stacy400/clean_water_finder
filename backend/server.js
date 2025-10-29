@@ -34,6 +34,20 @@ app.post("/api/water-sources", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+// Get single water source by ID
+app.get("/api/water-sources/:id", async (req, res) => {
+  try {
+    const source = await WaterSource.findById(req.params.id);
+    if (!source) {
+      return res.status(404).json({ message: "Water source not found" });
+    }
+    res.json(source);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // --- Start Server ---
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
