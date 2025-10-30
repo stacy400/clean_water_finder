@@ -4,7 +4,7 @@ import { WaterSourceAPI } from "../lib/api";
 export default function AddSource() {
   const [form, setForm] = useState({
     name: "",
-    location: "", // human-readable location/description
+    location: "",
     latitude: "",
     longitude: "",
   });
@@ -13,10 +13,29 @@ export default function AddSource() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // 📍 Get user location
+  const handleUseMyLocation = () => {
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your browser");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setForm((prev) => ({ ...prev, latitude, longitude }));
+        alert(`📍 Location captured!\nLat: ${latitude}, Lng: ${longitude}`);
+      },
+      (error) => {
+        console.error("Geolocation error:", error);
+        alert("Failed to get location. Please enable location access.");
+      }
+    );
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Build payload to match backend schema (location object with numeric coords)
       const payload = {
         name: form.name,
         location: {
@@ -28,12 +47,11 @@ export default function AddSource() {
         quality: "Good",
       };
 
-      const res = await WaterSourceAPI.create(payload);
+      await WaterSourceAPI.create(payload);
       alert("✅ Water source added successfully!");
       setForm({ name: "", location: "", latitude: "", longitude: "" });
     } catch (err) {
       console.error("Error adding water source:", err);
-      // Try to show a helpful message from the server if available
       const serverMessage = err?.response?.data?.error || err?.message;
       alert(`❌ Failed to add source: ${serverMessage}`);
     }
@@ -57,20 +75,29 @@ export default function AddSource() {
           onChange={handleChange}
           className="w-full p-2 border rounded"
         />
-        <input
-          name="latitude"
-          placeholder="Latitude"
-          value={form.latitude}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-        />
-        <input
-          name="longitude"
-          placeholder="Longitude"
-          value={form.longitude}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-        />
+        <div className="flex gap-2">
+          <input
+            name="latitude"
+            placeholder="Latitude"
+            value={form.latitude}
+            onChange={handleChange}
+            className="w-full p-2 border rounded"
+          />
+          <input
+            name="longitude"
+            placeholder="Longitude"
+            value={form.longitude}
+            onChange={handleChange}
+            className="w-full p-2 border rounded"
+          />
+        </div>
+        <button
+          type="button"
+          onClick={handleUseMyLocation}
+          className="bg-green-600 text-white px-4 py-2 rounded"
+        >
+          📍 Use My Location
+        </button>
         <button
           type="submit"
           className="bg-blue-600 text-white px-4 py-2 rounded"
