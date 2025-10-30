@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import FindWater from "./pages/FindWater";
+import FindWater from "./pages/Findwater";
 import AddSource from "./pages/AddSource";
 import About from "./pages/About";
 
