@@ -6,7 +6,7 @@ const Navbar = () => {
       <div className="flex flex-col items-center">
         <h1 className="text-2xl font-bold mb-2">💧 Clean Water Finder</h1>
         <ul className="flex space-x-8">
-          <li><Link to="/" className="hover:text-blue-200">Home</Link></li>
+          <li><Link to="/home" className="hover:text-blue-200">Home</Link></li>
           <li><Link to="/find" className="hover:text-blue-200">Find Water</Link></li>
           <li><Link to="/add" className="hover:text-blue-200">Add Source</Link></li>
           <li><Link to="/about" className="hover:text-blue-200">About</Link></li>
