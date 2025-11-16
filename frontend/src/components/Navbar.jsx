@@ -10,7 +10,6 @@ const Navbar = () => {
           <li><Link to="/find" className="hover:text-blue-200">Find Water</Link></li>
           <li><Link to="/add" className="hover:text-blue-200">Add Source</Link></li>
           <li><Link to="/about" className="hover:text-blue-200">About</Link></li>
-          <li><Link to="/water" className="hover:text-blue-200">Water Map</Link></li>
         </ul>
       </div>
     </nav>

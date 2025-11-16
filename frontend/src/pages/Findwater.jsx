@@ -65,7 +65,7 @@ export default function FindWater() {
   useEffect(() => {
     async function fetchSources() {
       try {
-        const response = await axios.get("http://localhost:5000/api/water-sources");
+        const response = await axios.get("https://clean-water-finder-3.onrender.com/api/water-sources");
         setSources(response.data);
       } catch (error) {
         console.error("Error fetching sources:", error);
